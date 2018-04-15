@@ -39,7 +39,6 @@ class User extends Authenticatable
     public function getLastTimeLog()
     {
         return $this->timeLogs()
-        // ->where(DB::raw('date(created_at)'), now()->toDateString())
         ->latest()
         ->first();
     }

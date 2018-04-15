@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\UserTimeLog;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserTimeLogCollection;
 use App\Http\Requests\UserTimeLog\StoreRequest;
 
 class UserTimeLogController extends Controller
@@ -14,9 +15,13 @@ class UserTimeLogController extends Controller
         $this->userTimeLog = $userTimeLog;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->userTimeLog->all();
+        $userTimeLogs = $this->userTimeLog;
+        if ($request->has('include')) {
+            $userTimeLogs = $this->userTimeLog->with(explode(',', $request->get('include')));
+        }
+        return new UserTimeLogCollection($userTimeLogs->get());
     }
 
     public function create(StoreRequest $request)

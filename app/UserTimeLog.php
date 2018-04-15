@@ -25,7 +25,7 @@ class UserTimeLog extends Model
     {
         $this->user_id = $attributes['user_id'];
         $this->type = $attributes['type'];
-        $this->created_at = now()->addMinutes(3600 * 1)->toDateTimeString();
+        $this->created_at = now()->toDateTimeString();
         $this->save();
     }
 
@@ -41,5 +41,10 @@ class UserTimeLog extends Model
             'minutes_covered' => $start->diffInMinutes($end),
             'hours_covered' => $start->diffInHours($end)
         ];
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

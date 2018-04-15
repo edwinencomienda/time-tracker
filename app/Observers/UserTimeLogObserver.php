@@ -19,12 +19,5 @@ class UserTimeLogObserver
         }
         
         $user->save();
-
-        // if ($userTimeLog->type == 'logout') {
-        //     $userTimeLog->time_start = $user->userLastLogin()->time_start;
-        //     $userTimeLog->time_end = now();
-        // } else {
-        //     $userTimeLog->time_start = now();
-        // }
     }
 }
